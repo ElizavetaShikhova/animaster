@@ -3,28 +3,44 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function addListeners() {
+    let fadeInAnimation, fadeOutAnimation, moveAnimation,
+        scaleAnimation, showAndHideAnimation, rotateAnimation, heartBeatingAnimation;
+
     document.getElementById('fadeInPlay').addEventListener('click', function () {
         const el = document.getElementById('fadeInBlock');
-        animaster().addFadeIn(5000).play(el);
+        fadeInAnimation = animaster().addFadeIn(5000).play(el);
+    });
+    document.getElementById('fadeInReset').addEventListener('click', function () {
+        fadeInAnimation && fadeInAnimation.reset();
     });
 
     document.getElementById('fadeOutPlay').addEventListener('click', function () {
         const el = document.getElementById('fadeOutBlock');
-        animaster().addFadeOut(5000).play(el);
+        fadeOutAnimation = animaster().addFadeOut(5000).play(el);
+    });
+    document.getElementById('fadeOutReset').addEventListener('click', function () {
+        fadeOutAnimation && fadeOutAnimation.reset();
     });
 
     document.getElementById('movePlay').addEventListener('click', function () {
         const el = document.getElementById('moveBlock');
-        animaster().addMove(1000, { x: 100, y: 10 }).play(el);
+        moveAnimation = animaster().addMove(1000, { x: 100, y: 10 }).play(el);
+    });
+    document.getElementById('moveReset').addEventListener('click', function () {
+        moveAnimation && moveAnimation.reset();
     });
 
     document.getElementById('scalePlay').addEventListener('click', function () {
         const el = document.getElementById('scaleBlock');
-        animaster().addScale(1000, 1.25).play(el);
+        scaleAnimation = animaster().addScale(1000, 1.25).play(el);
+    });
+    document.getElementById('scaleReset').addEventListener('click', function () {
+        scaleAnimation && scaleAnimation.reset();
     });
 
     document.getElementById('moveAndHidePlay').addEventListener('click', function () {
         const el = document.getElementById('moveAndHideBlock');
+        // moveAndHide уже возвращает объект с reset
         const animation = animaster().addMoveAndHide(1000).play(el);
         document.getElementById('moveAndHideReset').addEventListener('click', function () {
             animation.reset();
@@ -33,20 +49,26 @@ function addListeners() {
 
     document.getElementById('showAndHidePlay').addEventListener('click', function () {
         const el = document.getElementById('showAndHideBlock');
-        animaster().addShowAndHide(1000).play(el);
+        showAndHideAnimation = animaster().addShowAndHide(1000).play(el);
+    });
+    document.getElementById('showAndHideReset').addEventListener('click', function () {
+        showAndHideAnimation && showAndHideAnimation.reset();
     });
 
     document.getElementById('heartBeatingPlay').addEventListener('click', function () {
         const el = document.getElementById('heartBeatingBlock');
-        const heartbeatAnimation = animaster().addHeartBeating().play(el);
-        document.getElementById('heartBeatingStop').addEventListener('click', function () {
-            heartbeatAnimation.stop();
-        });
+        heartBeatingAnimation = animaster().addHeartBeating().play(el);
     });
-
+    document.getElementById('heartBeatingStop').addEventListener('click', function () {
+        heartBeatingAnimation && heartBeatingAnimation.stop();
+    });
+    
     document.getElementById('rotatePlay').addEventListener('click', function () {
         const el = document.getElementById('rotateBlock');
-        animaster().addRotate(1000, 360).play(el);
+        rotateAnimation = animaster().addRotate(1000, 360).play(el);
+    });
+    document.getElementById('rotateReset').addEventListener('click', function () {
+        rotateAnimation && rotateAnimation.reset();
     });
 
     const worryAnimationHandler = animaster()
@@ -58,6 +80,7 @@ function addListeners() {
 
     document.getElementById('worryAnimationBlock')?.addEventListener('click', worryAnimationHandler);
 }
+
 
 
 function animaster() {
