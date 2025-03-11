@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function addListeners() {
     let fadeInAnimation, fadeOutAnimation, moveAnimation,
-        scaleAnimation, showAndHideAnimation, rotateAnimation, heartBeatingAnimation;
+        scaleAnimation, moveAndHideAnimation, showAndHideAnimation,
+        heartBeatingAnimation, rotateAnimation;
 
     document.getElementById('fadeInPlay').addEventListener('click', function () {
         const el = document.getElementById('fadeInBlock');
@@ -40,11 +41,10 @@ function addListeners() {
 
     document.getElementById('moveAndHidePlay').addEventListener('click', function () {
         const el = document.getElementById('moveAndHideBlock');
-        // moveAndHide уже возвращает объект с reset
-        const animation = animaster().addMoveAndHide(1000).play(el);
-        document.getElementById('moveAndHideReset').addEventListener('click', function () {
-            animation.reset();
-        });
+        moveAndHideAnimation = animaster().addMoveAndHide(1000).play(el);
+    });
+    document.getElementById('moveAndHideReset').addEventListener('click', function () {
+        moveAndHideAnimation && moveAndHideAnimation.reset();
     });
 
     document.getElementById('showAndHidePlay').addEventListener('click', function () {
@@ -55,6 +55,7 @@ function addListeners() {
         showAndHideAnimation && showAndHideAnimation.reset();
     });
 
+    // Для heart beating: только кнопка Stop
     document.getElementById('heartBeatingPlay').addEventListener('click', function () {
         const el = document.getElementById('heartBeatingBlock');
         heartBeatingAnimation = animaster().addHeartBeating().play(el);
@@ -62,7 +63,7 @@ function addListeners() {
     document.getElementById('heartBeatingStop').addEventListener('click', function () {
         heartBeatingAnimation && heartBeatingAnimation.stop();
     });
-    
+
     document.getElementById('rotatePlay').addEventListener('click', function () {
         const el = document.getElementById('rotateBlock');
         rotateAnimation = animaster().addRotate(1000, 360).play(el);
@@ -70,7 +71,7 @@ function addListeners() {
     document.getElementById('rotateReset').addEventListener('click', function () {
         rotateAnimation && rotateAnimation.reset();
     });
-
+    
     const worryAnimationHandler = animaster()
         .addMove(200, { x: 80, y: 0 })
         .addMove(200, { x: 0, y: 0 })
@@ -78,8 +79,9 @@ function addListeners() {
         .addMove(200, { x: 0, y: 0 })
         .buildHandler();
 
-    document.getElementById('worryAnimationBlock')?.addEventListener('click', worryAnimationHandler);
+    document.getElementById('worryAnimationPlay')?.addEventListener('click', worryAnimationHandler);
 }
+
 
 
 
